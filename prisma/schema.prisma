@@ -14,33 +14,34 @@ datasource db {
 }
 
 model User {
-  id          Int  @id @default(autoincrement)
+  id          Int  @id @default(autoincrement())
   nombre      String
   dni         String  @unique
   correo      String  @unique
-  contraseña  String
+  contraseña  String? @map("contraseña") @db.VarChar
   isSuperUser Boolean @default(false)
   createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt()
+  updatedAt   DateTime @updatedAt
 }
 
 model Product {
-  idProducto  Int  @id @default(autoincrement)
+  idProducto  Int @id @default(autoincrement())
   precio      Float
   cantidad    Int
   categoria   String
   subcategoria String
   createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt()
+  updatedAt   DateTime @updatedAt
 }
 
 model ObjectClient {
-  id             Int   @id @default(autoincrement)
+  id             Int @id @default(autoincrement())
   dniCliente     String
   tipoDeObjeto   String
   fechaEntrada   DateTime @default(now())
   descripcionProblema String
   aclaraciones   String? 
   fechaSalida    DateTime? 
-  updatedAt   DateTime @updatedAt()
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
