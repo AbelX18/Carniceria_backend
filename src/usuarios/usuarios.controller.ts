@@ -6,28 +6,17 @@ import {
   Patch,
   Param,
   Delete,
-  UsePipes,
-  ValidationPipe,
 } from '@nestjs/common';
 import { UsuariosService } from './usuarios.service';
 import { CreateUsuarioDto } from './dto/create-usuario.dto';
 import { UpdateUsuarioDto } from './dto/update-usuario.dto';
-
-// const usuarioHardCode = {
-//   nombre: 'marcos',
-//   dni: '42.015.511',
-//   correo: 'marcos@dev1.com',
-//   contraseña: 'admin',
-// };
 
 @Controller('usuarios')
 export class UsuariosController {
   constructor(private readonly usuariosService: UsuariosService) {}
 
   @Post()
-  @UsePipes(new ValidationPipe({ transform: true }))
   create(@Body() createUsuarioDto: CreateUsuarioDto) {
-    console.log('Datos recibidos en el controlador:', createUsuarioDto);
     return this.usuariosService.create(createUsuarioDto);
   }
 

@@ -1,19 +1,10 @@
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-import { IsBoolean, IsEmail, IsOptional, IsString } from 'class-validator';
 export class CreateUsuarioDto {
-  @IsString()
   nombre: string;
-
-  @IsString()
-  dni: string;
-
-  @IsEmail()
-  correo: string;
-
-  @IsString()
-  contraseña: string;
-
-  @IsOptional()
-  @IsBoolean()
-  isSuperUser?: boolean;
+  email: string;
+  password: string;
+  constructor(nombre: string, email: string, password: string) {
+    this.nombre = nombre;
+    this.email = email;
+    this.password = password;
+  }
 }
