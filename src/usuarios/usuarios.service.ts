@@ -1,19 +1,40 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import { PrismaService } from '../prisma.service';
 import { CreateUsuarioDto } from './dto/create-usuario.dto';
 import { UpdateUsuarioDto } from './dto/update-usuario.dto';
 
 @Injectable()
 export class UsuariosService {
-  create(createUsuarioDto: CreateUsuarioDto) {
-    return `This action adds a new usuario to the database #${JSON.stringify(createUsuarioDto)}`;
+  constructor(private readonly prisma: PrismaService) {}
+
+  async create(createUsuarioDto: CreateUsuarioDto) {
+    try {
+      return await this.prisma.user.create({
+        data: {
+          nombre: createUsuarioDto.nombre,
+          dni: createUsuarioDto.dni,
+          correo: createUsuarioDto.correo,
+          contraseña: createUsuarioDto.contraseña,
+          isSuperUser: createUsuarioDto.isSuperUser ?? false,
+        },
+      });
+    } catch (error) {
+      throw new InternalServerErrorException(
+        `Error creating usuario: ${error instanceof Error ? error.message : 'Unknown error'}`,
+      );
+    }
   }
 
   findAll() {
-    return `This action returns all usuarios`;
+    return this.prisma.user.findMany();
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} usuario`;
+    return this.prisma.user.findUnique({
+      where: {
+        id,
+      },
+    });
   }
 
   update(id: number, updateUsuarioDto: UpdateUsuarioDto) {
