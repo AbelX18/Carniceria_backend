@@ -7,7 +7,8 @@ import { PrismaService } from 'src/prisma.service';
 export class ProductsService {
   constructor(private prisma: PrismaService){}
 
-  async create(data) {
+  async create(data : CreateProductDto) {
+    console.log(data)
     return this.prisma.product.create({data})
   }
 
@@ -19,11 +20,13 @@ export class ProductsService {
     return this.prisma.product.findUnique({where: {id}});
   }
 
-  async update(id: number, updateProductDto: UpdateProductDto) {
-    return this.prisma
+  async update(id: number, data: UpdateProductDto) {
+    return this.prisma.product.update({where: {id}, data})
   }
 
   async remove(id: number) {
-    return `This action removes a #${id} product`;
+    return this.prisma.product.delete({
+      where: {id}
+    })
   }
 }

@@ -9,7 +9,7 @@ export class ProductsController {
 
   @Post()
   create(@Body() data: CreateProductDto) {
-    return this.productsService.create(CreateProductDto);
+    return this.productsService.create(data);
   }
 
   @Get()
