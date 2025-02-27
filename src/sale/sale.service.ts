@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, HttpCode, NotFoundException } from '@nestjs/common';
 import { CreateSaleDto } from './dto/create-sale.dto';
 import { UpdateSaleDto } from './dto/update-sale.dto';
 import { PrismaService } from 'src/prisma.service';
@@ -16,7 +16,12 @@ export class SaleService {
   }
 
   async findOne(id: number) {
-    return this.prisma.objectClient.findUnique({where: {id}})
+    const saleFound = this.prisma.objectClient.findUnique({where: {id}})
+    console.log(saleFound)
+    if(!saleFound){
+      return new NotFoundException(`Sale with id ${id} not found`)
+    }
+    return saleFound
   }
 
   async update(id: number, data: UpdateSaleDto) {
