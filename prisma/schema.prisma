@@ -21,7 +21,7 @@ model User {
   contraseña  String? @map("contraseña") @db.VarChar
   isSuperUser Boolean @default(false)
   createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  updatedAt   DateTime? @updatedAt
 }
 
 model Product {
@@ -32,7 +32,7 @@ model Product {
   categoria   String
   subcategoria String
   createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  updatedAt   DateTime? @updatedAt
 }
 
 model ObjectClient {
@@ -44,5 +44,5 @@ model ObjectClient {
   aclaraciones   String?
   estado         String?
   fechaSalida    DateTime? 
-  updatedAt   DateTime @updatedAt
+  updatedAt   DateTime? @updatedAt
 }
