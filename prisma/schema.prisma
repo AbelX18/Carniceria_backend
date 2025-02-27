@@ -25,7 +25,8 @@ model User {
 }
 
 model Product {
-  idProducto  Int @id @default(autoincrement())
+  id  Int @id @default(autoincrement())
+  nombre      String
   precio      Float
   cantidad    Int
   categoria   String
@@ -40,8 +41,8 @@ model ObjectClient {
   tipoDeObjeto   String
   fechaEntrada   DateTime @default(now())
   descripcionProblema String
-  aclaraciones   String? 
+  aclaraciones   String?
+  estado         String?
   fechaSalida    DateTime? 
-  createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
