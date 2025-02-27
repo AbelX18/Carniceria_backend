@@ -16,8 +16,7 @@ export class SaleService {
   }
 
   async findOne(id: number) {
-    const saleFound = this.prisma.objectClient.findUnique({where: {id}})
-    console.log(saleFound)
+    const saleFound = await this.prisma.objectClient.findFirst({where: {id}})
     if(!saleFound){
       return new NotFoundException(`Sale with id ${id} not found`)
     }
@@ -25,10 +24,21 @@ export class SaleService {
   }
 
   async update(id: number, data: UpdateSaleDto) {
+
+    const saleFound = await this.prisma.objectClient.findFirst({where: {id}})
+    if(!saleFound){
+      return new NotFoundException(`Sale with id ${id} not found`)
+    }
+
     return this.prisma.objectClient.update({where: {id}, data})
   }
 
   async remove(id: number) {
+    const saleFound = await this.prisma.objectClient.findFirst({where: {id}})
+    if(!saleFound){
+      return new NotFoundException(`Sale with id ${id} not found`)
+    }
+    
     return this.prisma.objectClient.delete({where: {id}})
   }
 }
