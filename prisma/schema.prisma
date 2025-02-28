@@ -33,12 +33,11 @@ model Product {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt()
 }
-
+//notas poner un status con 3 o 2 tipos de variables  entregado, terminado, pendiente
 model ObjectClient {
   id             Int @id @default(autoincrement())
   dniCliente     String
   tipoDeObjeto   String
-  fechaEntrada   DateTime @default(now())
   descripcionProblema String
   aclaraciones   String? 
   fechaSalida    DateTime? 
