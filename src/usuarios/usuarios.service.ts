@@ -30,6 +30,7 @@ export class UsuariosService {
     }
   }
 
+  //ver despues donde mostrar el mensaje de que no hay usuarios
   findAll() {
     return this.prisma.user.findMany();
   }
