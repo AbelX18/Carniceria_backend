@@ -33,6 +33,7 @@ model Product {
   subcategoria String
   createdAt   DateTime @default(now())
   updatedAt   DateTime? @updatedAt
+  ticket      TicketItem[]
 }
 
 model ObjectClient {
@@ -45,4 +46,24 @@ model ObjectClient {
   estado         String?
   fechaSalida    DateTime? 
   updatedAt   DateTime? @updatedAt
+}
+
+model Ticket {
+  id            Int @id @default(autoincrement())
+  comprador     String
+  total         Float @default(0)
+  items         TicketItem[]
+  fechacompra   DateTime 
+  createdAt     DateTime @default(now())
+}
+
+model TicketItem{
+  ticketId      Int
+  productId     Int
+  quantity      Int
+  price         Float
+  ticket        Ticket  @relation(fields: [ticketId], references: [id])
+  product       Product @relation(fields: [productId], references: [id])
+
+  @@id([ticketId,productId])
 }
